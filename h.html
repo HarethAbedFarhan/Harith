@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عالم حارث الجنابي الرقمي</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap');
+        
+        :root {
+            --main-color: #ff0066;
+            --secondary-color: #9900ff;
+            --accent-color: #ffcc00;
+            --text-color: #ffffff;
+            --space-color: #0a0a2a;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background: var(--space-color);
+            color: var(--text-color);
+            font-family: 'Tajawal', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            perspective: 1000px;
+        }
+        
+        .space {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+            animation: spaceMove 50s linear infinite;
+        }
+        
+        @keyframes spaceMove {
+            0% { transform: scale(1) rotate(0deg); }
+            100% { transform: scale(1.2) rotate(1deg); }
+        }
+        
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration) infinite ease-in-out;
+            opacity: var(--opacity);
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+        
+        .profile-container {
+            background: linear-gradient(135deg, 
+                rgba(255, 0, 102, 0.7), 
+                rgba(153, 0, 255, 0.7), 
+                rgba(255, 204, 0, 0.7));
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 0 40px rgba(255, 0, 102, 0.6);
+            text-align: center;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            margin: 20px;
+            z-index: 1;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            transform-style: preserve-3d;
+        }
+        
+        .profile-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.1) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(30deg);
+            animation: shine 6s infinite;
+            z-index: -1;
+        }
+        
+        .profile-container:hover {
+            transform: rotateY(5deg) scale(1.03);
+            box-shadow: 0 0 80px rgba(255, 0, 102, 0.9);
+        }
+        
+        .profile-title {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+            position: relative;
+            display: inline-block;
+            animation: titleGlow 3s infinite alternate;
+        }
+        
+        @keyframes titleGlow {
+            0% { text-shadow: 0 0 15px rgba(255, 255, 255, 0.8); }
+            100% { text-shadow: 0 0 30px rgba(255, 204, 0, 0.9); }
+        }
+        
+        .profile-image-container {
+            position: relative;
+            display: inline-block;
+            transform-style: preserve-3d;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotateY(0deg); }
+            50% { transform: translateY(-20px) rotateY(10deg); }
+        }
+        
+        .profile-image {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 4px solid var(--accent-color);
+            box-shadow: 0 0 40px rgba(255, 204, 0, 0.8);
+            object-fit: cover;
+            position: relative;
+            z-index: 1;
+            transition: all 0.5s ease;
+            transform-style: preserve-3d;
+        }
+        
+        .profile-image:hover {
+            transform: scale(1.1) rotateY(20deg);
+            box-shadow: 0 0 60px rgba(255, 204, 0, 1);
+        }
+        
+        .profile-image-container::before {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            top: -10px;
+            left: -10px;
+            border: 2px dashed var(--accent-color);
+            animation: rotate 20s linear infinite;
+            opacity: 0.7;
+        }
+        
+        .profile-section-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 25px;
+            color: var(--accent-color);
+            text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+        
+        .profile-section-title::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -5px;
+            left: 0;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+        
+        .profile-section-title:hover::after {
+            width: 100%;
+        }
+        
+        .profile-section-title.active {
+            background: rgba(255, 204, 0, 0.2);
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.5);
+        }
+        
+        .profile-info {
+            font-size: 18px;
+            margin: 15px 0;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transform-style: preserve-3d;
+            display: none;
+            text-align: right;
+        }
+        
+        .profile-info.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .profile-info:hover {
+            transform: translateY(-5px) rotateX(5deg);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.4);
+        }
+        
+        .profile-info-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 12px 0;
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+        }
+        
+        .profile-info-item:hover {
+            transform: translateX(10px);
+        }
+        
+        .hobby-icon {
+            font-size: 24px;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .profile-info-item:hover .hobby-icon {
+            transform: scale(1.2) rotate(10deg);
+        }
+        
+        .social-media {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            transform-style: preserve-3d;
+        }
+        
+        .social-media a {
+            color: var(--accent-color);
+            font-size: 28px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transform-style: preserve-3d;
+        }
+        
+        .social-media a:hover {
+            color: white;
+            background: var(--main-color);
+            transform: translateY(-5px) rotateY(20deg) scale(1.1);
+            box-shadow: 0 10px 20px rgba(255, 0, 102, 0.5);
+        }
+        
+        /* تأثيرات خاصة */
+        .digital-rain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+        
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: floatParticle linear infinite;
+        }
+        
+        @keyframes floatParticle {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .profile-container {
+                padding: 20px;
+                transform: none !important;
+            }
+            .profile-container:hover {
+                transform: none !important;
+            }
+            .profile-title {
+                font-size: 28px;
+            }
+            .profile-image {
+                width: 150px;
+                height: 150px;
+            }
+            .profile-image-container::before {
+                width: 170px;
+                height: 170px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="space"></div>
+    <div class="stars" id="stars"></div>
+    <div class="particles" id="particles"></div>
+    
+    <div class="profile-container">
+        <div class="profile-image-container">
+            <img src="https://lh3.googleusercontent.com/a/ACg8ocLK2d1mNT-YF5JsKEXXK8AD_oTGtqsPUKNLgY2uL6EOw0J7IZWm=s864-c-no" 
+                 alt="حارث عبد فرحان الجنابي" 
+                 class="profile-image">
+        </div>
+
+        <h1 class="profile-title">حارث عبد فرحان الجنابي</h1>
+        
+        <div class="profile-section-title" onclick="toggleSection('about')">من أنا؟</div>
+        <div class="profile-info" id="about">
+            <div class="profile-info-item">
+                <span class="hobby-icon">👨‍💻</span>
+                <span>مبرمج ومطور ويب محترف مع خبرة تزيد عن 3 سنوات في مجال تطوير الويب والتطبيقات</span>
+            </div>
+            <div class="profile-info-item">
+                <span class="hobby-icon">🌐</span>
+                <span>من بغداد، العراق - أسعى لنقل خبراتي التقنية إلى العالم العربي</span>
+            </div>
+            <div class="profile-info-item">
+                <span class="hobby-icon">🎯</span>
+                <span>أمتلك مهارات عالية في حل المشكلات البرمجية المعقدة</span>
+            </div>
+            <div class="profile-info-item">
+                <span class="hobby-icon">🚀</span>
+                <span>أسعى لتحقيق التميز في مجال الذكاء الاصطناعي وتعلم الآلة</span>
+            </div>
+            <div class="profile-info-item">
+                <span class="hobby-icon">💡</span>
+                <span>أؤمن بقوة التكنولوجيا في تغيير العالم وتحسين حياة الناس</span>
+            </div>
+            <div class="profile-info-item">
+                <span class="hobby-icon">📚</span>
+                <span>أتابع باستمرار آخر التطورات في عالم البرمجة والتقنية</span>
+            </div>
+        </div>
+        
+        <div class="profile-section-title" onclick="toggleSection('basic-info')">المعلومات الأساسية</div>
+        <div class="profile-info" id="basic-info">
+            <div class="profile-info-item">
+                <span class="hobby-icon">📍</span>
+                <span>العمر: 24 سنة (مواليد 7 فبراير 2000)</span>
+            </div>
+            <div class="profile-info-item">
+                <span class="hobby-icon">🎓</span>
+                <span>خريج علوم حاسوب من الجامعة العراقية بتقدير جيد جداً</span>
+            </div>
+            <div class="profile-info-item">
+                <span class="hobby-icon">💼</span>
+                <span>مطور ويب وتطبيقات متكامل Full Stack Developer</span>
+            </div>
+            <div class="profile-info-item">
+                <span class="hobby-icon">📅</span>
+                <span>بدأت رحلتي في البرمجة منذ عام 2018</span>
+            </div>
+            <div class="profile-info-item">
+                <span class="hobby-icon">🏆</span>
+                <span>حاصل على عدة شهادات في تطوير الويب والبرمجة</span>
+            </div>
+            <div class="profile-info-item">
+                <span class="hobby-icon">🌍</span>
+                <span>أجيد اللغة العربية والإنجليزية بطلاقة</span>
+            </div>
+        </div>
+        
+        <div class="profile-section-title" onclick="toggleSection('skills')">المهارات</div>
+        <div class="profile-info" id="skills">
+            <div class="profile-info-item">
+                <span class="hobby-icon">🔧</span>
+                <span>HTML, CSS, JavaScript (إتقان متقدم)</span>
+            </div>
+            <div class="profile-info-item">
+                <span class="hobby-icon">⚙️</span>
+                <span>React, Node.js, Express.js (خبرة عملية)</span>
+            </div>
+            <div class="profile-info-item">
+                <span class="hobby-icon">🧠</span>
+                <span>تعلم الآلة والذكاء الاصطناعي (Python, TensorFlow)</span>
+            </div>
+            <div class="profile-info-item">
+                <span class="hobby-icon">📱</span>
+                <span>تطوير تطبيقات الهاتف (React Native)</span>
+            </div>
+            <div class="profile-info-item">
+                <span class="hobby-icon">🗃️</span>
+                <span>قواعد البيانات (MySQL, MongoDB, Firebase)</span>
+            </div>
+            <div class="profile-info-item">
+                <span class="hobby-icon">🎨</span>
+                <span>تصميم واجهات المستخدم (UI/UX)</span>
+            </div>
+            <div class="profile-info-item">
+                <span class="hobby-icon">🔌</span>
+                <span>APIs وتكامل الأنظمة</span>
+            </div>
+            <div class="profile-info-item">
+                <span class="hobby-icon">🛠️</span>
+                <span>إدارة المشاريع وأدوات التحكم بالإصدارات (Git)</span>
+            </div>
+        </div>
+        
+        <div class="profile-section-title" onclick="toggleSection('projects')">المشاريع</div>
+        <div class="profile-info" id="projects">
+            <div class="profile-info-item">
+                <span class="hobby-icon">🛒</span>
+                <span>منصة تجارة إلكترونية متكاملة باستخدام تقنيات MERN Stack</span>
+            </div>
+            <div class="profile-info-item">
+                <span class="hobby-icon">📊</span>
+                <span>نظام متقدم لتحليل البيانات باستخدام الذكاء الاصطناعي</span>
+            </div>
+            <div class="profile-info-item">
+                <span class="hobby-icon">📱</span>
+                <span>تطبيق هاتف متكامل لإدارة المهام اليومية</span>
+            </div>
+            <div class="profile-info-item">
+                <span class="hobby-icon">✉️</span>
+                <span>تصميم نظام بحث عن البريد الإلكتروني للموظفين الحكوميين</span>
+            </div>
+            <div class="profile-info-item">
+                <span class="hobby-icon">🖥️</span>
+                <span>تصميم واجهات دخول وعرض للمستخدمين باحترافية عالية</span>
+            </div>
+            <div class="profile-info-item">
+                <span class="hobby-icon">🌐</span>
+                <span>موقع شخصي تفاعلي بتقنيات ثلاثية الأبعاد</span>
+            </div>
+            <div class="profile-info-item">
+                <span class="hobby-icon">🎮</span>
+                <span>ألعاب ويب تفاعلية باستخدام JavaScript</span>
+            </div>
+            <div class="profile-info-item">
+                <span class="hobby-icon">📝</span>
+                <span>نظام إدارة محتوى (CMS) مخصص</span>
+            </div>
+        </div>
+        
+        <div class="profile-section-title" onclick="toggleSection('ambitions')">طموحاتي</div>
+        <div class="profile-info" id="ambitions">
+            <div class="profile-info-item">
+                <span class="hobby-icon">🌌</span>
+                <span>إنشاء مشاريع تقنية مبتكرة تؤثر إيجابياً في المجتمع</span>
+            </div>
+            <div class="profile-info-item">
+                <span class="hobby-icon">🌍</span>
+                <span>التأثير إيجابياً في المجتمع التقني العربي ونقل المعرفة</span>
+            </div>
+            <div class="profile-info-item">
+                <span class="hobby-icon">🏆</span>
+                <span>الوصول إلى العالمية في مجال التكنولوجيا والذكاء الاصطناعي</span>
+            </div>
+            <div class="profile-info-item">
+                <span class="hobby-icon">👨‍🏫</span>
+                <span>إنشاء منصة تعليمية عربية متخصصة في التقنيات الحديثة</span>
+            </div>
+            <div class="profile-info-item">
+                <span class="hobby-icon">💼</span>
+                <span>تأسيس شركة ناشئة تقدم حلولاً تقنية مبتكرة</span>
+            </div>
+            <div class="profile-info-item">
+                <span class="hobby-icon">🤝</span>
+                <span>التعاون مع المبدعين العرب لإنشاء مشاريع مشتركة</span>
+            </div>
+        </div>
+        
+        <div class="social-media">
+            <a href="https://www.instagram.com/hareth_abed1?igsh=MTE5M3ZleWxjaWdxaQ==" target="_blank">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/%D8%AD%D8%A7%D8%B1%D8%AB-%D8%B9%D8%A8%D8%AF-%D9%81%D8%B1%D8%AD%D8%A7%D9%86-%D8%B4%D9%84%D8%A7%D9%84-90133a248" target="_blank">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://www.facebook.com/share/1A44CNy7A1/" target="_blank">
+                <i class="fab fa-facebook"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- عنصر الصوت المخفي -->
+    <audio id="clickSound" src="https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-216.mp3" preload="auto"></audio>
+
+    <script>
+        // إنشاء النجوم
+        function createStars() {
+            const container = document.getElementById('stars');
+            const count = 200;
+            
+            for (let i = 0; i < count; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                const size = Math.random() * 3;
+                const duration = Math.random() * 10 + 5;
+                const opacity = Math.random() * 0.7 + 0.1;
+                
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.setProperty('--duration', `${duration}s`);
+                star.style.setProperty('--opacity', opacity);
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                
+                container.appendChild(star);
+            }
+        }
+        
+        // إنشاء جسيمات متحركة
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const count = 30;
+            
+            for (let i = 0; i < count; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                const size = Math.random() * 5 + 1;
+                const duration = Math.random() * 15 + 10;
+                const delay = Math.random() * 5;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.bottom = `-${size}px`;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${delay}s`;
+                
+                container.appendChild(particle);
+            }
+        }
+        
+        // تبديل الأقسام مع تأثير صوتي
+        function toggleSection(sectionId) {
+            // تشغيل الصوت
+            const clickSound = document.getElementById('clickSound');
+            clickSound.currentTime = 0; // إعادة الصوت للبداية
+            clickSound.play().catch(e => console.log("لا يمكن تشغيل الصوت:", e));
+            
+            // إخفاء جميع الأقسام أولاً
+            document.querySelectorAll('.profile-info').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // إزالة التنشيط من جميع العناوين
+            document.querySelectorAll('.profile-section-title').forEach(title => {
+                title.classList.remove('active');
+            });
+            
+            // إظهار القسم المحدد
+            const section = document.getElementById(sectionId);
+            section.classList.add('active');
+            
+            // تنشيط عنوان القسم
+            event.currentTarget.classList.add('active');
+        }
+        
+        // تأثيرات الصفحة عند التحميل
+        window.onload = function() {
+            createStars();
+            createParticles();
+        };
+    </script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</body>
+</html>
